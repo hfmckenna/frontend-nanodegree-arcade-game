@@ -6,14 +6,14 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
-    this.x = 0;
-    this.y = -20;
+    this.x = -101;
+    this.y = -25;
     this.speed = getRandomArbitrary();
 };
 
 // Used for enemy speed, placeholder code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomArbitrary() {
-    return Math.random() * (500 - 50) + 50;
+    return Math.random() * (350 - 150) + 150;
   };
 
 // Update the enemy's position, required method for game
@@ -46,8 +46,9 @@ let Player = function() {
 };
 
 Player.prototype.update = function(dt) {
-    //
-
+    // Not the most visually obvious way to restrict movement to the grid. May have glitches.
+    this.x = Math.min(404,Math.max(0,this.x));
+    this.y = Math.min(390,Math.max(-25,this.y));
 };
 
 Player.prototype.render = function() {
@@ -55,8 +56,21 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(e) {
-    //
-    
+    // Might be able to come up with object based solution rather than switch casing but somewhat unsure of this targeting.
+    switch (e) {
+        case 'left' :
+        this.x -= 101
+        break;
+        case 'right' :
+        this.x += 101
+        break;
+        case 'up' :
+        this.y -= 83
+        break;
+        case 'down' :
+        this.y += 83
+        break;
+    }
 };
 
 // Now instantiate your objects.
