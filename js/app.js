@@ -28,6 +28,8 @@ Enemy.prototype.update = function(dt) {
     } else {
     this.x += dt * this.speed;
     }
+    if (this.y === player.y)
+    {if (this.x > player.x && this.x < (player.x + 73) || this.x < player.x && (this.x + 83) > player.x) {resetGame()}};
 };
 
 // Draw the enemy on the screen, required method for game
@@ -43,10 +45,11 @@ let Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 202;
     this.y = 390;
+    this.lives = 3;
 };
 
 Player.prototype.update = function(dt) {
-    // Not the most visually obvious way to restrict movement to the grid. May have glitches.
+    // Restricts movement of the player on the grid.
     this.x = Math.min(404,Math.max(0,this.x));
     this.y = Math.min(390,Math.max(-25,this.y));
 };
@@ -73,18 +76,26 @@ Player.prototype.handleInput = function(e) {
     }
 };
 
+Player.prototype.reset = function () {
+    this.x = 202;
+    this.y = 390;
+    this.lives = 3;
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
 let allEnemies = [];
-
-
+generateEnemies();
 // Could maybe use spread operator for more succinct code but suspect push method will let me increase the difficulty as time goes on.
+
+function generateEnemies() {
 for (let i = 1; i <= 3; i++) {
     const enemy = new Enemy();
     allEnemies.push(enemy);
     enemy.y = enemy.y + (83 * i);
+}
 };
 
 let player = new Player();
@@ -101,3 +112,9 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+function resetGame() {
+    allEnemies = [];
+    generateEnemies();
+    player.reset();
+}
