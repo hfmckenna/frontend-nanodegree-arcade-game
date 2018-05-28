@@ -29,7 +29,17 @@ Enemy.prototype.update = function(dt) {
     this.x += dt * this.speed;
     }
     if (this.y === player.y)
-    {if (this.x > player.x && this.x < (player.x + 73) || this.x < player.x && (this.x + 83) > player.x) {resetGame()}};
+    {if (this.x > player.x && this.x < (player.x + 73) || this.x < player.x && (this.x + 83) > player.x) 
+        {
+            player.lives -= 1;
+            if (player.lives > 0) {
+                resetGame();
+            }
+            else {
+                gameOver();
+            }
+        }
+    };
 };
 
 // Draw the enemy on the screen, required method for game
@@ -81,7 +91,6 @@ Player.prototype.handleInput = function(e) {
 Player.prototype.reset = function () {
     this.x = 202;
     this.y = 390;
-    this.lives = 3;
 }
 
 // Now instantiate your objects.
@@ -104,6 +113,7 @@ let player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
+
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
@@ -111,7 +121,6 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
@@ -119,4 +128,25 @@ function resetGame() {
     allEnemies = [];
     generateEnemies();
     player.reset();
+}
+
+function restartGame() {
+    allEnemies = [];
+    generateEnemies();
+    player = new Player;
+    const deleteButton = document.getElementById('resetBtn');
+    deleteButton.outerHTML= "";
+}
+
+function gameOver () {
+    player.update = function(){};
+    for (let i = 0; i < allEnemies.length; i++){
+        allEnemies[i].update = function (){};
+    }
+    player.handleInput = function(){};
+    const resetButton = document.createElement('button');
+    resetButton.textContent = 'You Died. Try Again?';
+    resetButton.id = 'resetBtn';
+    resetButton.setAttribute('onclick', 'restartGame()')
+    document.body.appendChild(resetButton);
 }
