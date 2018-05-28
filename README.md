@@ -1,6 +1,21 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Students should use this [rubric](https://review.udacity.com/#!/projects/2696458597/rubric) for self-checking their submission. Make sure the functions you write are **object-oriented** - either class functions (like Player and Enemy) or class prototype functions such as Enemy.prototype.checkCollisions, and that the keyword 'this' is used appropriately within your class and class prototype functions to refer to the object the function is called upon. Also be sure that the **readme.md** file is updated with your instructions on both how to 1. Run and 2. Play your arcade game.
+###The Game
 
-For detailed instructions on how to get started, check out this [guide](https://docs.google.com/document/d/1v01aScPjSWCCWQLIpFqvg3-vXLH2e8_SZQKC8jNO0Dc/pub?embedded=true).
+Who doesn't love Frogger? Anyone with slow reflexes and in this example, a fear of lady birds. Navigate your way across the street to get to the cool waters on the other side.
+
+###Installation
+
+You can clone [this repository](https://github.com/hfmckenna/frontend-nanodegree-arcade-game) and then simply navigate to the index.html file using your browser or file manager. Open it up and the game should start immediately.
+
+###Rules
+
+- Up, Down, Left, Right arrow keys to move
+- Avoid hitting the bugs
+- Reach the river to increase your score, the game gets increasingly harder at higher scores
+- You have 3 lives
+
+###Credit
+
+This arcade game is based on an engine and assets from Udacity's front end development course. I've given the game it's core logic, including player movement and victory conditions.
