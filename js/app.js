@@ -150,7 +150,7 @@ function gameOver() {
     }
     player.handleInput = function () {};
     const resetButton = document.createElement('button');
-    resetButton.textContent = 'You Died. Try Again?';
+    resetButton.textContent = 'Game Over. Try Again?';
     resetButton.id = 'resetBtn';
     resetButton.setAttribute('onclick', 'restartGame()');
     document.body.appendChild(resetButton);
