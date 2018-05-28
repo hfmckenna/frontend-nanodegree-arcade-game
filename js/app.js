@@ -14,7 +14,7 @@ const Enemy = function () {
 // Used for enemy speed, placeholder code from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomArbitrary() {
     return Math.random() * (350 - 150) + 150;
-};
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -37,7 +37,7 @@ Enemy.prototype.update = function (dt) {
                 gameOver();
             }
         }
-    };
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -77,16 +77,16 @@ Player.prototype.handleInput = function (e) {
     // Might be able to come up with object based solution rather than switch casing but somewhat unsure of this targeting.
     switch (e) {
         case 'left':
-            this.x -= 101
+            this.x -= 101;
             break;
         case 'right':
-            this.x += 101
+            this.x += 101;
             break;
         case 'up':
-            this.y -= 83
+            this.y -= 83;
             break;
         case 'down':
-            this.y += 83
+            this.y += 83;
             break;
     }
 };
@@ -110,7 +110,7 @@ function generateEnemies() {
         allEnemies.push(enemy);
         enemy.y = enemy.y + (83 * i);
     }
-};
+}
 
 let player = new Player();
 
@@ -136,7 +136,7 @@ function resetGame() {
 function restartGame() {
     allEnemies = [];
     generateEnemies();
-    player = new Player;
+    player = new Player();
     const deleteButton = document.getElementById('resetBtn');
     deleteButton.outerHTML = "";
 }
@@ -152,6 +152,6 @@ function gameOver() {
     const resetButton = document.createElement('button');
     resetButton.textContent = 'You Died. Try Again?';
     resetButton.id = 'resetBtn';
-    resetButton.setAttribute('onclick', 'restartGame()')
+    resetButton.setAttribute('onclick', 'restartGame()');
     document.body.appendChild(resetButton);
 }
