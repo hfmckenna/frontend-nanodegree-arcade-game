@@ -52,6 +52,8 @@ Player.prototype.update = function(dt) {
     // Restricts movement of the player on the grid.
     this.x = Math.min(404,Math.max(0,this.x));
     this.y = Math.min(390,Math.max(-25,this.y));
+    if (this.y < 57)
+    {resetGame();}
 };
 
 Player.prototype.render = function() {
