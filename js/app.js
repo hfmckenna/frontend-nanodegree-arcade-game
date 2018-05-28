@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function() {
+const Enemy = function() {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -24,7 +24,7 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     if (this.x > 606) {
         this.x = -101;
-        this.speed = getRandomArbitrary();
+        this.speed = getRandomArbitrary() + (player.score * 5);
     } else {
     this.x += dt * this.speed;
     }
@@ -51,11 +51,12 @@ Enemy.prototype.render = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 
-let Player = function() {
+const Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 202;
     this.y = 390;
     this.lives = 3;
+    this.score = 0;
 };
 
 Player.prototype.update = function(dt) {
@@ -63,11 +64,14 @@ Player.prototype.update = function(dt) {
     this.x = Math.min(404,Math.max(0,this.x));
     this.y = Math.min(390,Math.max(-25,this.y));
     if (this.y < 57)
-    {resetGame();}
+    {this.score += 1;
+        resetGame();}
 };
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    //Bit janky to add Lives and Score here for drawing but they are both player related and saves modifying the Engine code. Might be worth a quick perf check.
+    document.getElementById('gameInfo').textContent = `Lives: ${player.lives} Score: ${player.score}`
 };
 
 Player.prototype.handleInput = function(e) {
@@ -139,6 +143,8 @@ function restartGame() {
 }
 
 function gameOver () {
+    //Empty functions used on player death to "stop" the game, without producing errors in the engine or reloading anything.
+    //This could be achieved with cancelAnimationFrame in Engine but that has it's own set of issues.
     player.update = function(){};
     for (let i = 0; i < allEnemies.length; i++){
         allEnemies[i].update = function (){};
