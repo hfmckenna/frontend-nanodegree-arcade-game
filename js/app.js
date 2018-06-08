@@ -1,5 +1,6 @@
+'use strict';
 // Enemies our player must avoid
-const Enemy = function () {
+const Enemy = function (dictatesVerticalPosition) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -7,7 +8,7 @@ const Enemy = function () {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.x = -101;
-    this.y = -25;
+    this.y = -25 + dictatesVerticalPosition;
     this.speed = getRandomArbitrary();
 };
 
@@ -29,7 +30,7 @@ Enemy.prototype.update = function (dt) {
         this.x += dt * this.speed;
     }
     if (this.y === player.y) {
-        if (this.x > player.x && this.x < (player.x + 73) || this.x < player.x && (this.x + 83) > player.x) {
+        if (this.x > player.x && this.x < (player.x + 53) || this.x < player.x && (this.x + 53) > player.x) {
             player.lives -= 1;
             if (player.lives > 0) {
                 resetGame();
@@ -67,10 +68,12 @@ Player.prototype.update = function (dt) {
     }
 };
 
+const scoreLivesInfo = document.getElementById('gameInfo');
+
 Player.prototype.render = function () {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //Bit janky to add Lives and Score here for drawing but they are both player related and saves modifying the Engine code. Might be worth a quick perf check.
-    document.getElementById('gameInfo').textContent = `Lives: ${player.lives} Score: ${player.score}`
+    scoreLivesInfo.textContent = `Lives: ${player.lives} Score: ${player.score}`
 };
 
 Player.prototype.handleInput = function (e) {
@@ -106,9 +109,8 @@ generateEnemies();
 
 function generateEnemies() {
     for (let i = 1; i <= 3; i++) {
-        const enemy = new Enemy();
+        const enemy = new Enemy((83 * i));
         allEnemies.push(enemy);
-        enemy.y = enemy.y + (83 * i);
     }
 }
 
